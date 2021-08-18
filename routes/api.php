@@ -31,7 +31,7 @@ Route::post('/register', [RegisterController::class, 'post']);
 Route::post('/login',[LoginController::class, 'post']);
 Route::post('/logout', [LogoutController::class, 'post']);
 Route::get('/user', [UsersController::class, 'get']);
-Route::get('/shops', [ShopsController::class, 'get']);
+Route::apiResource('/shops', ShopsController::class);
 Route::get('/shops/:shop_id', [ShopsController::class, 'get']);
 Route::post('/like', [LikesController::class, 'post']);
 Route::delete('/like', [LikesController::class, 'delete']);

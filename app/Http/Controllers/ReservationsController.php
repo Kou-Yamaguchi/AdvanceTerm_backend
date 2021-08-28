@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class ReservationsController extends Controller
 {
@@ -15,7 +16,7 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-        $items = Reservation::all();
+        $items = Reservation::with('shop')->get();
         return response()->json([
             'message' => 'OK',
             'data' => $items
@@ -30,13 +31,32 @@ class ReservationsController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new Reservation;
-        $item->user_id = $request->user_id;
-        $item->shop_id = $request->shop_id;
-        $item->reservation = $request->reservation;
-        $item->save();
+        // $item = new Reservation;
+        // $item->user_id = $request->user_id;
+        // $item->shop_id = $request->shop_id;
+        // $item->date = $request->date;
+        // $item->time = $request->time;
+        // $item->personNumber = $request->personNumber;
+        // $item->save();
+        // return response()->json([
+        //     'message' => 'Reservation created successfully',
+        //     'data' => $item
+        // ], 200);
+
+        $now = Carbon::now();
+        $param = [
+            "user_id" => $request->user_id,
+            "shop_id" => $request->shop_id,
+            "date" => $request->date,
+            "time" => $request->time,
+            "number" => $request->number,
+            "created_at" => $now,
+            "updated_at" => $now
+        ];
+        DB::table('reservations')->insert($param);
         return response()->json([
             'message' => 'Reservation created successfully',
+            'data' => $param
         ], 200);
     }
 
@@ -48,13 +68,13 @@ class ReservationsController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        $item = Reservation::where('id', $reservation->id)->first();
-        $date = DB::table('date')->where('reservation_id', $reservation->id)->get();
-        $time = DB::table('time')->where('reservation_id', $reservation->id)->get();
-        $personNumber = DB::table('personNumber')->where('reservation_id', $reservation->id)->get();
-        $user_id = $item->user_id;
-        $shop_id = $item->shop_id;
-        $shop = DB::table('shops')->where('id', (int)$shop_id)->first();
+        $item = Reservation::where('id', $reservation->id)->with('shop')->first();
+        // $date = DB::table('date')->where('reservation_id', $reservation->id)->get();
+        // $time = DB::table('time')->where('reservation_id', $reservation->id)->get();
+        // $personNumber = DB::table('number')->where('reservation_id', $reservation->id)->get();
+        // $user_id = $item->user_id;
+        // $shop_id = $item->shop_id;
+        // $shop = DB::table('shops')->where('id', (int)$shop_id)->first();
         $reservation_data = array();
         if(empty($item->toArray())) {
             $items = [
@@ -73,10 +93,11 @@ class ReservationsController extends Controller
         }
         $items = [
             "item" => $item,
-            "date" => $date,
-            "time" => $time,
-            "number" => $personNumber,
-            "shopName" => $shop->name,
+            "reservation_data" => $reservation_data
+            // "date" => $date,
+            // "time" => $time,
+            // "number" => $personNumber,
+            // "shopName" => $shop->name,
         ];
         return response()->json($items, 200);
     }

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Shop;
+//追記
+// use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ShopsController extends Controller
 {
@@ -14,10 +18,12 @@ class ShopsController extends Controller
      */
     public function index()
     {
-        $items = Shop::all();
+        $items = Shop::with('genre')->with('location')->with('like')->get();
+        // $likes = Shop::first()->with('like')->get();
         return response()->json([
             'message' => 'OK',
-            'data' => $items
+            'data' => $items,
+            // 'likedata' => $likes
         ], 200);
     }
 
@@ -84,5 +90,37 @@ class ShopsController extends Controller
     public function destroy(Shop $shop)
     {
         //
+    }
+
+    public function reservation(Request $request)
+    {
+        // $item = new Reservation;
+        // $item->user_id = $request->user_id;
+        // $item->shop_id = $request->shop_id;
+        // // $item->reservation = $request->reservation;
+        // $item->date = $request->date;
+        // $item->time = $request->time;
+        // $item->personNumber = $request->personNumber;
+        // $item->save();
+        // return response()->json([
+        //     'message' => 'Reservation created successfully',
+        //     'data' => $item
+        // ], 200);
+
+        $now = Carbon::now();
+        $param = [
+            "user_id" => $request->user_id,
+            "shop_id" => $request->shop_id,
+            "date" => $request->date,
+            "time" => $request->time,
+            "number" => $request->number,
+            "created_at" => $now,
+            "updated_at" => $now
+        ];
+        DB::table('reservations')->insert($param);
+        return response()->json([
+            'message' => 'Reservation created successfully',
+            'data' => $param
+        ], 200);
     }
 }

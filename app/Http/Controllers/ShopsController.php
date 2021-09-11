@@ -19,11 +19,9 @@ class ShopsController extends Controller
     public function index()
     {
         $items = Shop::with('genre')->with('location')->with('like')->get();
-        // $likes = Shop::first()->with('like')->get();
         return response()->json([
             'message' => 'OK',
             'data' => $items,
-            // 'likedata' => $likes
         ], 200);
     }
 
@@ -35,17 +33,17 @@ class ShopsController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new Shop;
-        $item->location_id = $request->location_id;
-        $item->genre_id = $request->genre_id;
-        $item->shopName = $request->shopName;
-        $item->comment = $request->comment;
-        $item->img_url = $request->img_url;
-        $item->save();
-        return response()->json([
-            'message' => 'Shop created successfully',
-            'data' => $item
-        ], 200);
+        // $item = new Shop;
+        // $item->location_id = $request->location_id;
+        // $item->genre_id = $request->genre_id;
+        // $item->shopName = $request->shopName;
+        // $item->comment = $request->comment;
+        // $item->img_url = $request->img_url;
+        // $item->save();
+        // return response()->json([
+        //     'message' => 'Shop created successfully',
+        //     'data' => $item
+        // ], 200);
     }
 
     /**
@@ -92,35 +90,22 @@ class ShopsController extends Controller
         //
     }
 
-    public function reservation(Request $request)
-    {
-        // $item = new Reservation;
-        // $item->user_id = $request->user_id;
-        // $item->shop_id = $request->shop_id;
-        // // $item->reservation = $request->reservation;
-        // $item->date = $request->date;
-        // $item->time = $request->time;
-        // $item->personNumber = $request->personNumber;
-        // $item->save();
-        // return response()->json([
-        //     'message' => 'Reservation created successfully',
-        //     'data' => $item
-        // ], 200);
-
-        $now = Carbon::now();
-        $param = [
-            "user_id" => $request->user_id,
-            "shop_id" => $request->shop_id,
-            "date" => $request->date,
-            "time" => $request->time,
-            "number" => $request->number,
-            "created_at" => $now,
-            "updated_at" => $now
-        ];
-        DB::table('reservations')->insert($param);
-        return response()->json([
-            'message' => 'Reservation created successfully',
-            'data' => $param
-        ], 200);
-    }
+    // public function reservation(Request $request)
+    // {
+    //     $now = Carbon::now();
+    //     $param = [
+    //         "user_id" => $request->user_id,
+    //         "shop_id" => $request->shop_id,
+    //         "date" => $request->date,
+    //         "time" => $request->time,
+    //         "number" => $request->number,
+    //         "created_at" => $now,
+    //         "updated_at" => $now
+    //     ];
+    //     DB::table('reservations')->insert($param);
+    //     return response()->json([
+    //         'message' => 'Reservation created successfully',
+    //         'data' => $param
+    //     ], 200);
+    // }
 }

@@ -35,3 +35,5 @@ Route::apiResource('/shops', ShopsController::class);
 Route::get('/shops/:shop_id', [ShopsController::class, 'get']);
 Route::post('/like', [LikesController::class, 'post']);
 Route::delete('/like', [LikesController::class, 'delete']);
+//テスト
+Route::get('/like', [LikesController::class, 'get']);

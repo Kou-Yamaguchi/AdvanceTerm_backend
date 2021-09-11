@@ -69,12 +69,6 @@ class ReservationsController extends Controller
     public function show(Reservation $reservation)
     {
         $item = Reservation::where('id', $reservation->id)->with('shop')->first();
-        // $date = DB::table('date')->where('reservation_id', $reservation->id)->get();
-        // $time = DB::table('time')->where('reservation_id', $reservation->id)->get();
-        // $personNumber = DB::table('number')->where('reservation_id', $reservation->id)->get();
-        // $user_id = $item->user_id;
-        // $shop_id = $item->shop_id;
-        // $shop = DB::table('shops')->where('id', (int)$shop_id)->first();
         $reservation_data = array();
         if(empty($item->toArray())) {
             $items = [
@@ -94,10 +88,6 @@ class ReservationsController extends Controller
         $items = [
             "item" => $item,
             "reservation_data" => $reservation_data
-            // "date" => $date,
-            // "time" => $time,
-            // "number" => $personNumber,
-            // "shopName" => $shop->name,
         ];
         return response()->json($items, 200);
     }
@@ -111,22 +101,22 @@ class ReservationsController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
-        $item = Reservation::where('id', $reservation->id)->first();
-        $item->date = $request->date;
-        $item->time = $request->time;
-        $item->number = $request->number;
-        $item->shop_id = $request->shop_id;
-        $item->user_id = $request->user_id;
-        $item->save();
-        if ($item) {
-            return response()->json([
-                'message' => 'Updated successfully',
-            ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Not found',
-            ], 404);
-        }
+        // $item = Reservation::where('id', $reservation->id)->first();
+        // $item->date = $request->date;
+        // $item->time = $request->time;
+        // $item->number = $request->number;
+        // $item->shop_id = $request->shop_id;
+        // $item->user_id = $request->user_id;
+        // $item->save();
+        // if ($item) {
+        //     return response()->json([
+        //         'message' => 'Updated successfully',
+        //     ], 200);
+        // } else {
+        //     return response()->json([
+        //         'message' => 'Not found',
+        //     ], 404);
+        // }
     }
 
     /**

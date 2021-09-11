@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Models\Like;
 
 class LikesController extends Controller
 {
@@ -28,6 +29,17 @@ class LikesController extends Controller
         DB::table('likes')->where('shop_id', $request->shop_id)->where('user_id', $request->user_id)->delete();
         return response()->json([
             'message' => 'Like deleted successfully',
+        ], 200);
+    }
+    //テスト
+    public function get()
+    {
+        $item = Like::with(['shop' => function($query){
+            $query->with('genre','location');
+        }])->get();
+        return response()->json([
+            'message' => 'Like got successfully',
+            'data' => $item
         ], 200);
     }
 }

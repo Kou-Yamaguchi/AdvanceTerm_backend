@@ -13,4 +13,9 @@ class Like extends Model
         'shop_id' => 'required',
         'user_id' => 'required'
     );
+    //テスト
+    public function shop()
+    {
+        return $this->belongsTo('App\Models\Shop', 'shop_id');
+    }
 }

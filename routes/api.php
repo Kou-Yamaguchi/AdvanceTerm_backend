@@ -24,28 +24,28 @@ use App\Http\Controllers\LikesController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-// Route::apiResource('/reservations', ReservationsController::class);
-// Route::post('/shops/reservation', 'ShopsController@reservation');
-// Route::post('/register', [RegisterController::class, 'post']);
-// Route::post('/login',[LoginController::class, 'post']);
-// Route::post('/logout', [LogoutController::class, 'post']);
-// Route::get('/user', [UsersController::class, 'get']);
-// Route::apiResource('/shops', ShopsController::class);
-// Route::get('/shops/:shop_id', [ShopsController::class, 'get']);
-// Route::post('/like', [LikesController::class, 'post']);
-// Route::delete('/like', [LikesController::class, 'delete']);
+Route::apiResource('/reservations', ReservationsController::class);
+Route::post('/shops/reservation', 'ShopsController@reservation');
+Route::post('/register', [RegisterController::class, 'post']);
+Route::post('/login',[LoginController::class, 'post']);
+Route::post('/logout', [LogoutController::class, 'post']);
+Route::get('/user', [UsersController::class, 'get']);
+Route::apiResource('/shops', ShopsController::class);
+Route::get('/shops/:shop_id', [ShopsController::class, 'get']);
+Route::post('/like', [LikesController::class, 'post']);
+Route::delete('/like', [LikesController::class, 'delete']);
 //テスト
 Route::get('/like', [LikesController::class, 'get']);
 //cors設定
-Route::middleware(['cors'])->group(function () {
-    Route::apiResource('/reservations', ReservationsController::class);
-    Route::post('/shops/reservation', 'ShopsController@reservation');
-    Route::post('/register', [RegisterController::class, 'post']);
-    Route::post('/login', [LoginController::class, 'post']);
-    Route::post('/logout', [LogoutController::class, 'post']);
-    Route::get('/user', [UsersController::class, 'get']);
-    Route::apiResource('/shops', ShopsController::class);
-    Route::get('/shops/:shop_id', [ShopsController::class, 'get']);
-    Route::post('/like', [LikesController::class, 'post']);
-    Route::delete('/like', [LikesController::class, 'delete']);
-});
+// Route::middleware(['cors'])->group(function () {
+//     Route::apiResource('/reservations', ReservationsController::class);
+//     Route::post('/shops/reservation', 'ShopsController@reservation');
+//     Route::post('/register', [RegisterController::class, 'post']);
+//     Route::post('/login', [LoginController::class, 'post']);
+//     Route::post('/logout', [LogoutController::class, 'post']);
+//     Route::get('/user', [UsersController::class, 'get']);
+//     Route::apiResource('/shops', ShopsController::class);
+//     Route::get('/shops/:shop_id', [ShopsController::class, 'get']);
+//     Route::post('/like', [LikesController::class, 'post']);
+//     Route::delete('/like', [LikesController::class, 'delete']);
+// });

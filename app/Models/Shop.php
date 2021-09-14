@@ -22,7 +22,7 @@ class Shop extends Model
     }
     public function location()
     {
-        return $this->belongsTo('App\Models\location', 'location_id');
+        return $this->belongsTo('App\Models\Location', 'location_id');
     }
     public function like()
     {

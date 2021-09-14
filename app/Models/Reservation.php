@@ -11,6 +11,6 @@ class Reservation extends Model
     // protected $guarded = array('id');
     public function shop()
     {
-        return $this->belongsTo('App\Models\shop', 'shop_id');
+        return $this->belongsTo('App\Models\Shop', 'shop_id');
     }
 }

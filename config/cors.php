@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://cocky-gates-e844d2.netlify.app'],
+    'allowed_origins' => ['https://cocky-gates-e844d2.netlify.app', 'http://localhost:8080/'],
 
     'allowed_origins_patterns' => [],
 

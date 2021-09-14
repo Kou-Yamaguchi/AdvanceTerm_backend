@@ -49,7 +49,7 @@ class ReservationsController extends Controller
             "shop_id" => $request->shop_id,
             "date" => $request->date,
             "time" => $request->time,
-            "number" => $request->number,
+            "PersonNumber" => $request->number,
             "created_at" => $now,
             "updated_at" => $now
         ];

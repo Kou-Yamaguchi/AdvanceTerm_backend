@@ -26,6 +26,6 @@ class Shop extends Model
     }
     public function like()
     {
-        return $this->hasMany('App\Models\like', 'shop_id');
+        return $this->hasMany('App\Models\Like', 'shop_id');
     }
 }

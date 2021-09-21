@@ -27,6 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('/reservations', ReservationsController::class);
 Route::post('/shops/reservation', 'ShopsController@reservation');
 Route::post('/register', [RegisterController::class, 'post']);
+Route::delete('/register', [RegisterController::class, 'delete']);
 Route::post('/login',[LoginController::class, 'post']);
 Route::post('/logout', [LogoutController::class, 'post']);
 Route::get('/user', [UsersController::class, 'get']);

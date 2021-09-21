@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shop extends Model
 {
-    // use HasFactory;
     protected $guarded = array("id");
     public static $rules = array(
         'genre_id' => 'required',

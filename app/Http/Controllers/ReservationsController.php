@@ -31,18 +31,14 @@ class ReservationsController extends Controller
      */
     public function store(Request $request)
     {
-        // $item = new Reservation;
-        // $item->user_id = $request->user_id;
-        // $item->shop_id = $request->shop_id;
-        // $item->date = $request->date;
-        // $item->time = $request->time;
-        // $item->personNumber = $request->personNumber;
-        // $item->save();
-        // return response()->json([
-        //     'message' => 'Reservation created successfully',
-        //     'data' => $item
-        // ], 200);
-
+        $validate_rule = [
+            'user_id' => 'required',
+            'shop_id' => 'required',
+            'date' => 'required|after:today',
+            'time' => 'required',
+            'number' => 'required'
+        ];
+        $this->validate($request, $validate_rule);
         $now = Carbon::now();
         $param = [
             "user_id" => $request->user_id,
@@ -101,22 +97,7 @@ class ReservationsController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
-        // $item = Reservation::where('id', $reservation->id)->first();
-        // $item->date = $request->date;
-        // $item->time = $request->time;
-        // $item->number = $request->number;
-        // $item->shop_id = $request->shop_id;
-        // $item->user_id = $request->user_id;
-        // $item->save();
-        // if ($item) {
-        //     return response()->json([
-        //         'message' => 'Updated successfully',
-        //     ], 200);
-        // } else {
-        //     return response()->json([
-        //         'message' => 'Not found',
-        //     ], 404);
-        // }
+        //
     }
 
     /**

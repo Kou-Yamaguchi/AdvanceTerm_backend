@@ -11,6 +11,12 @@ class RegisterController extends Controller
 {
     public function post(Request $request)
     {
+        $validate_rule = [
+            'name' => 'required',
+            'email' => 'requiredlemail',
+            'password' => 'required|current_password'
+        ];
+        $this->validate($request, $validate_rule);
         $now = Carbon::now();
         $hashed_password = Hash::make($request->password);
         $param = [
@@ -25,5 +31,21 @@ class RegisterController extends Controller
             'message' => 'User created successfully',
             'data' => $param
         ], 200);
+    }
+
+    public function delete(Request $request)
+    {
+        $item = DB::table('users')->where('id', $request->id)->delete();
+        if ($item) {
+            return response()->json(
+                ['message' => 'User deleted successfully'],
+                200
+            );
+        } else {
+            return response()->json(
+                ['message' => 'User not found'],
+                404
+            );
+        }
     }
 }
